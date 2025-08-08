@@ -1,10 +1,9 @@
 import { FileText } from "lucide-react"
-import { Button } from "../ui/button";
 import NavLink from "./nav-link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import PlanBadge from "./plan-badge";
 
 const Header = () => {
-
     const isLoagged = false;
     return (
         <div className="flex items-center justify-between container mx-auto py-4 lg:px-8 px-2 ">
@@ -15,7 +14,7 @@ const Header = () => {
                 </NavLink>
             </div>
             <div className="flex lg:justify-center gap-4 lg:gap-12 lg:items-center ">
-                <NavLink href={"#pricing"} >Pricing</NavLink>
+                <NavLink href={"/#pricing"} >Pricing</NavLink>
                 <SignedIn>
                     <NavLink href={"/dashboard"} >Your summaries</NavLink>
                 </SignedIn>
@@ -24,7 +23,7 @@ const Header = () => {
                 <SignedIn>
                     <div className="flex gap-2 items-center">
                         <NavLink href={"/upload"}>Upload a PDF</NavLink>
-                        <div>Pro</div>
+                        <PlanBadge />
                         <SignedIn>
                             <UserButton />
                         </SignedIn>

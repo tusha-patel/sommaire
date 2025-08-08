@@ -10,20 +10,20 @@ export const ourFileRouter = {
         .middleware(async ({ req }) => {
             // Get current authenticated user
             const user = await currentUser();
-
-            console.log("user", user);
-
             if (!user) throw new UploadThingError('Unauthorized');
 
             return { userId: user.id };
         })
         .onUploadComplete(async ({ metadata, file }) => {
-            console.log('Upload completed for user:', metadata.userId);
-            console.log(file, "file ");
+            // console.log('Upload completed for user:', metadata.userId);
 
             // You can store file info in database here if needed
-            return { userId: metadata.userId, file: file.ufsUrl };
-
+            // return { userId: metadata.userId, file };
+            return {
+                userId: metadata.userId,
+                fileUrl: file.ufsUrl,     
+                fileName: file.name,   
+            };
         }),
 } satisfies FileRouter;
 

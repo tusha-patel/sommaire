@@ -1,4 +1,7 @@
+"use client"
+
 import { cn } from '@/lib/utils';
+import { PricingPlans } from '@/utils/constants';
 import { ArrowRight, CheckIcon } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
@@ -12,38 +15,6 @@ type PriceType = {
     paymentLink: string;
     priceId: string;
 }
-
-const plans = [
-    {
-        name: 'Basic',
-        price: '$9',
-        description: 'Perfect for occasional use',
-        period: 'month',
-        items: [
-            '5 PDF summaries per month',
-            'Standard processing speed',
-            'Email support',
-        ],
-        id: "basic",
-        paymentLink: '',
-        priceId: "",
-    },
-    {
-        name: 'Pro',
-        price: '$19',
-        description: 'For professionals and teams',
-        period: 'month',
-        items: [
-            'Unlimited PDF summaries',
-            'Priority processing',
-            '24/7 priority support',
-            'Markdown Export',
-        ],
-        id: "pro",
-        paymentLink: '',
-        priceId: "",
-    },
-];
 
 
 function PricingCard({
@@ -78,7 +49,7 @@ function PricingCard({
                         </li>
                     ))}
                 </div>
-                <div className="">
+                <div className="" >
                     <Link href={paymentLink} className={cn('relative rounded-full flex justify-center items-center gap-2 bg-linear-to-r from-rose-800 to-rose-500 hover:from-rose-500 hover:to-rose-800 text-white border-2 py-2', id == 'pro' ? "border-rose-900" : "border-rose-100 from-rose-400 to-rose-500")} >
                         Buy Now <ArrowRight size={18} />
                     </Link>
@@ -99,7 +70,7 @@ export default function PricingSection() {
                 </div>
 
                 <div className="relative flex justify-center flex-col lg:flex-row items-center lg:items-stretch gap-8  ">
-                    {plans.map((plan) => (
+                    {PricingPlans.map((plan) => (
                         <PricingCard key={plan.id} {...plan} />
                     ))}
                 </div>

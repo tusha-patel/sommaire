@@ -5,7 +5,8 @@ import UploadFormInput from './upload-form-input'
 import { z } from "zod";
 import { useUploadThing } from '@/utils/uploading';
 import { toast } from "sonner"
-import { generatePdfSummary } from '@/actions/upload-actions';
+import { generatePdfSummary, storePdfSummaryAction } from '@/actions/upload-actions';
+import { useRouter } from 'next/navigation';
 
 const schema = z.object({
     file: z.instanceof(File, { message: "Invalid File" }).refine((file) => file.size <= 20 * 1024 * 1024, {
@@ -18,6 +19,7 @@ const schema = z.object({
 const UploadForm = () => {
     const formRef = useRef<HTMLFormElement>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const { startUpload } = useUploadThing('pdfUploader', {
         onClientUploadComplete: () => {
@@ -33,9 +35,9 @@ const UploadForm = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setIsLoading(true);
 
         try {
-            setIsLoading(true);
             const formData = new FormData(e.currentTarget);
             const file = formData.get("file") as File;
 
@@ -54,7 +56,7 @@ const UploadForm = () => {
             })
 
             try {
-                const res = await startUpload([file]);
+                const res: any = await startUpload([file]);
 
                 if (!res) {
                     toast("Something went wrong", {
@@ -69,23 +71,33 @@ const UploadForm = () => {
                     description: "We are uploading your pdf"
                 });
 
-                console.log(res);
 
                 // generate summary using lang chain 
                 const summary = await generatePdfSummary(res);
-
-                console.log(summary);
-
                 const { data = null, message = null } = summary || {};
-
                 if (data) {
+
+                    let storeResult: any;
                     toast("Saving PDF...", {
                         description: "Hang tight ! we are saving your summary!"
                     })
                     formRef.current?.reset();
-                    if (summary?.success) {
 
+                    if (data) {
+                        storeResult = await storePdfSummaryAction({
+                            fileUrl: res[0].ufsUrl,
+                            summary: data.summary,
+                            title: data.title,
+                            fileName: file.name,
+                        });
+
+                        toast("✨ Summary Generated !", {
+                            description: "your PDF has been successfully summarized and saved "
+                        })
                     }
+                    router.push(`/summaries/${storeResult.id}`)
+
+                    formRef.current?.reset();
                 }
 
 
@@ -110,6 +122,8 @@ const UploadForm = () => {
             toast.error("An error occurred", {
                 description: "Please try again later"
             });
+        } finally {
+            setIsLoading(false);
         }
     }
 
