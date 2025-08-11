@@ -45,7 +45,7 @@ const SummaryHeader = ({ title, createdAt, readingTime }: { title: string, creat
                 hover:shadow-md border border-rose-100/30 bg-rose-100 px-2 sm:px-3 hover:no-underline    ' >
                         <ChevronLeft className='h-3 w-3 sm:h-4 sm:w-4 text-rose-500 transition-transform group-hover:transition-x-0.5 ' />
                         <span className='text-xs sm:text-sm text-muted-foreground font-medium  '>Back
-                            <span className='hidden sm:inline'>to Dasboard</span>
+                            <span className='hidden sm:inline'> to Dashboard</span>
                         </span>
                     </Button>
                 </Link>
