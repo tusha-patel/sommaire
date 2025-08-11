@@ -21,7 +21,6 @@ const Page = async () => {
 
   const userId = user.id;
   const email = user.emailAddresses[0].emailAddress;
-  console.log(userId, email);
 
   const { hasReachedLimit } = await hasReachedUploadLimit({ userId, email });
 
