@@ -4,7 +4,6 @@ import DemoSection from "@/components/home/demo-section";
 import HeroSection from "@/components/home/hero-section";
 import HowItWorkSection from "@/components/home/how-it-work-section";
 import PricingSection from "@/components/home/pricing-section";
-import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
