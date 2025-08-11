@@ -4,7 +4,6 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import PlanBadge from "./plan-badge";
 
 const Header = () => {
-    const isLoagged = false;
     return (
         <div className="flex items-center justify-between container mx-auto py-4 lg:px-8 px-2 ">
             <div className="flex lg:flex-1">
@@ -32,7 +31,6 @@ const Header = () => {
                 <SignedOut>
                     <NavLink href={"/sign-in"}>Sign In</NavLink>
                 </SignedOut>
-
             </div>
         </div>
     )

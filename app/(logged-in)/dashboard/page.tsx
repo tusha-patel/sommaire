@@ -16,10 +16,8 @@ export default async function DashboardPage() {
     const userId = user?.id;
     const email = user?.emailAddresses[0].emailAddress;
     console.log(userId, email);
-    if (!userId) return redirect("/sign-in");
+    if (!userId || !email) return redirect("/sign-in");
     const { hasReachedLimit, uploadLimit } = await hasReachedUploadLimit({ userId, email });
-    console.log(hasReachedLimit);
-    console.log(uploadLimit, "uploas Limit");
 
 
     const summaries = await getSummaries(userId);
