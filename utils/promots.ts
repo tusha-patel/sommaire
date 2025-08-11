@@ -45,3 +45,41 @@ export const SUMMARY_SYSTEM_PROMPT = `You are a social media content expert who 
 - 🛠️ This is another example point
 
 ❗Never deviate from this format. Every line that contains content must start with \`-\` followed by an emoji.`;
+
+
+
+export const DEMO_SUMMARY = `
+# [Create a meaningful title based on the document's content]
+- 🔥 One powerful sentence that captures the document's essence.
+- ✨ Additional key overview point (if needed)
+
+
+## 📌 Key Highlights
+1. ⭐ First Key Point  
+2. ✅ Second Key Point  
+3. 💡 Third Key Point
+
+## 🌍 Why It Matters
+- A short, impactful paragraph explaining real-world impact
+
+## 🧠 Main Points
+1. 🔍 Main insight or finding  
+2. 🚀 Key strength or advantage  
+3. 🎯 Important outcome or result
+
+
+## 💼 Pro Tips
+- ✅ First practical recommendation  
+- 💎 Second valuable insight  
+- 🔧 Third actionable advice
+
+## 📘 Key Terms to Know
+- 📖 First key term: Simple explanation  
+- 📘 Second key term: Simple explanation
+
+## 🔚 Bottom Line
+- 💥 The most important takeaway
+
+## ✅ Example format:
+- 🌟 This is how every point should look  
+- 🛠️ This is another example point`
