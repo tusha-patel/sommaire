@@ -9,9 +9,12 @@ export async function getSummaries(userId: string) {
 
 
 export async function getUserUploadCount(userId: string) {
+    console.log(userId);
+
     const sql = await getDbConnection();
     try {
         const [result] = await sql`SELECT COUNT(*) as count FROM pdf_summaries WHERE user_id=${userId} `
+        console.log(result);
 
         return result.count || 0;
     } catch (error) {

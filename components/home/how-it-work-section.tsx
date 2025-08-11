@@ -1,5 +1,7 @@
 import { BrainCircuit, FileOutput, FileText, MoveRight } from 'lucide-react';
 import React, { ReactNode } from 'react'
+import { MotionDiv, MotionH2, MotionH3, MotionSection } from '../common/motion-wrapper';
+import { containerVariant } from '@/utils/constants';
 
 type step = {
     icon: ReactNode;
@@ -30,7 +32,7 @@ const steps: step[] = [
 export default function HowItWorkSection() {
     return (
         <>
-            <section className={`relative overflow-hidden bg-gray-50`}>
+            <MotionSection variants={containerVariant} className={`relative overflow-hidden bg-gray-50`}>
                 <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div
                         aria-hidden="true"
@@ -47,27 +49,38 @@ export default function HowItWorkSection() {
                     </div>
 
                     <div className="text-center mb-16">
-                        <span className='font-bold text-rose-500 uppercase text-xl mb-4 '>How It works</span>
-                        <h2 className='font-bold text-3xl max-w-2xl mx-auto '>Transform PDF int an easy-to-digest summary in three simple steps</h2>
+                        <MotionH2 initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                            className='font-bold text-rose-500 uppercase text-xl mb-4 '>How It works</MotionH2>
+                        <MotionH3 initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className='font-bold text-3xl max-w-2xl mx-auto '>Transform PDF int an easy-to-digest summary in three simple steps</MotionH3>
                     </div>
 
                     {/* upload pdf */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto relative ">
                         {
                             steps.map((step, ind) => (
-                                <div className="relative flex items-stretch " key={ind}>
+                                <MotionDiv initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: ind * 0.2 }}
+                                    className="relative flex items-stretch " key={ind}>
                                     <StepItem  {...step} />
                                     {ind < steps.length - 1 && (
-                                        <div className=" hidden md:block absolute top-1/2 transform -translate-y-1/2 z-10 -right-4 ">
+                                        <MotionDiv initial={{ opacity: 0 }}
+                                            whileInView={{ opacity: 1 }}
+                                            transition={{ duration: 0.5, delay: ind * 0.2 + 0.4 }} className=" hidden md:block absolute top-1/2 transform -translate-y-1/2 z-10 -right-4 ">
                                             <MoveRight size={32} strokeWidth={1} className='text-rose-400' />
-                                        </div>
+                                        </MotionDiv>
                                     )}
-                                </div>
+                                </MotionDiv>
                             ))
                         }
                     </div>
                 </div>
-            </section>
+            </MotionSection>
 
         </>
     )

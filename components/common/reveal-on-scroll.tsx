@@ -1,0 +1,28 @@
+// components/common/reveal-on-scroll.tsx
+'use client';
+
+import { useInView } from 'react-intersection-observer';
+import { motion } from '@motionone/react';
+
+type Props = {
+    children: React.ReactNode;
+    delay?: number;
+};
+
+export default function RevealOnScroll({ children, delay = 0 }: Props) {
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        threshold: 0.2, // Trigger when 20% visible
+    });
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay }}
+        >
+            {children}
+        </motion.div>
+    );
+}

@@ -1,4 +1,6 @@
 import React from 'react'
+import { MotionDiv } from '../common/motion-wrapper';
+import { containerVariant, itemVariants } from '@/utils/constants';
 
 function parsePoint(point: string) {
     const isNumbered = /^\d+\./.test(point);
@@ -42,7 +44,7 @@ const EmojiPoint = ({ point }: { point: string, }) => {
     const { emoji, text } = parseEmojiPoint(point) ?? {};
 
     return (
-        <div className="group relative bg-gradient-to-br from-gray-200/[0.08] to-gray-400/[0.03] p-4 rounded-2xl border border-gray-500/10 hover:shadow-lg transition-all"
+        <MotionDiv variants={itemVariants} className="group relative bg-gradient-to-br from-gray-200/[0.08] to-gray-400/[0.03] p-4 rounded-2xl border border-gray-500/10 hover:shadow-lg transition-all"
         >
             <div className="absolute inset-0 bg-gradient-to-r from-gray-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
             <div className="relative flex items-start gap-3">
@@ -51,7 +53,7 @@ const EmojiPoint = ({ point }: { point: string, }) => {
                     {text}
                 </p>
             </div>
-        </div>
+        </MotionDiv>
     )
 }
 
@@ -60,7 +62,7 @@ const RegularPoint = ({ point }: { point: string; }) => {
     const { emoji, text } = parseEmojiPoint(point) ?? {};
 
     return (
-        <div className="group relative bg-gradient-to-br from-gray-200/[0.08] to-gray-400/[0.03] p-4 rounded-2xl border border-gray-500/10 hover:shadow-lg transition-all"
+        <MotionDiv variants={itemVariants} className="group relative bg-gradient-to-br from-gray-200/[0.08] to-gray-400/[0.03] p-4 rounded-2xl border border-gray-500/10 hover:shadow-lg transition-all"
         >
             <div className="absolute inset-0 bg-gradient-to-r from-gray-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
             <div className="relative flex items-start gap-3">
@@ -69,7 +71,7 @@ const RegularPoint = ({ point }: { point: string; }) => {
                     {text}
                 </p>
             </div>
-        </div>
+        </MotionDiv>
     );
 }
 
@@ -82,7 +84,7 @@ const ContentSection = ({ title, points }: {
 
     // console.log(points);
     return (
-        <div className='space-y-4'>
+        <MotionDiv variants={containerVariant} key={points.join('')} initial='hidden' animate="visible" exit={"exit"} className='space-y-4'>
             {
                 points.map((point, index) => {
                     const { isMainPoint, hasEmoji, isEmpty } = parsePoint(point);
@@ -94,7 +96,7 @@ const ContentSection = ({ title, points }: {
                     }
                 })
             }
-        </div>
+        </MotionDiv>
     )
 }
 
