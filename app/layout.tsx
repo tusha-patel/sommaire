@@ -22,10 +22,10 @@ export const metadata: Metadata = {
       { url: "/sommaire.png" }
     ]
   },
-  metadataBase: new URL("/", ORIGIN_URL),
+  metadataBase: new URL(ORIGIN_URL), // ✅ always valid
   alternates: {
-    canonical: ORIGIN_URL
-  }
+    canonical: ORIGIN_URL,
+  },
 };
 
 export default function RootLayout({
