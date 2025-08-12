@@ -9,6 +9,9 @@ const Layout = async ({ children }: {
 }) => {
 
     const user = await currentUser();
+
+    console.log(user);
+
     if (!user) {
         redirect("/sign-in")
     }
