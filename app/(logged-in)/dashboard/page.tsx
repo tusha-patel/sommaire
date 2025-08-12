@@ -12,7 +12,7 @@ import { ArrowRight, Plus } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default async function DashboardPage({ searchParams }: { searchParams: { page?: string } }) {
+export default async function DashboardPage({ searchParams }: any) {
     const user = await currentUser();
     const userId = user?.id;
     const email = user?.emailAddresses[0].emailAddress;
@@ -21,7 +21,9 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
 
     const { hasReachedLimit, uploadLimit } = await hasReachedUploadLimit({ userId, email });
 
-    const page = Number(searchParams.page) || 1;
+    const page = Number(searchParams?.page ?? 1); 
+
+
     const perPage = 6;
 
     // Fetch all summaries (you can make your DB query return paginated data for better perf)
