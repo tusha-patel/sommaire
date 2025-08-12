@@ -9,6 +9,40 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 
+
+export const generatePdfText = async ({ fileUrl }: { fileUrl: string }) => {
+    try {
+        if (!fileUrl) {
+            return {
+                success: false,
+                message: "file upload failed",
+                data: null
+            }
+        }
+        const pdfText = await fetchAndExtracPdfText(fileUrl);
+        console.log(pdfText, "extracted pdf text");
+
+        if (!pdfText) {
+            return {
+                success: false,
+                message: "Failed fetched and extracted PDF text",
+                data: null
+            }
+        }
+
+        return {
+            success: true,
+            message: "PDF text generated successfully",
+            data: {
+                pdfText
+            }
+        };
+    } catch (error) {
+        console.error("Error extracting PDF text:", error);
+        throw new Error("Failed to extract PDF text");
+    }
+};
+
 interface PdfSummaryType {
     userId?: string;
     fileUrl: string;
@@ -17,36 +51,19 @@ interface PdfSummaryType {
     fileName: string
 }
 
-export async function generatePdfSummary(uploadResponse: [{
-    serverData: {
-        userId: string;
-        fileUrl: string,
-        fileName: string,
-    }
-}]) {
-
-
-    if (!uploadResponse || !uploadResponse[0]?.serverData?.fileUrl) {
-        return {
-            success: false,
-            message: "File upload failed",
-            data: null,
-        };
-    }
-
-    const {
-        serverData: { userId,
-            fileUrl: pdfUrl,
-            fileName
-        },
-    } = uploadResponse[0];
-
-    // console.log("Upload response:", uploadResponse);
-    // console.log("PDF URL:", pdfUrl);
+export async function generatePdfSummary({ pdfText, fileName }: {
+    pdfText: string;
+    fileName: string;
+}) {
 
     try {
-        const pdfText = await fetchAndExtracPdfText(pdfUrl);
-        // console.log("Extracted PDF text:", pdfText);
+        if (!pdfText) {
+            return {
+                success: false,
+                message: "Failed to extract PDF text",
+                data: null
+            };
+        }
 
         let summary;
 
@@ -79,14 +96,11 @@ export async function generatePdfSummary(uploadResponse: [{
             };
         }
 
-        const formattedFileName = formatFileNameAsTitle(fileName);
-        // console.log(formattedFileName, "formatted file name");
-
         return {
             success: true,
             message: "Summary generated successfully",
             data: {
-                title: formattedFileName,
+                title: fileName,
                 summary,
             },
         };
@@ -103,7 +117,6 @@ export async function generatePdfSummary(uploadResponse: [{
 
 
 // save database to summary
-
 async function savePdfSummary({ userId, fileUrl, summary, title, fileName }: PdfSummaryType) {
     try {
         const sql = await getDbConnection();

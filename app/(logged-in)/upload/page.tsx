@@ -12,6 +12,8 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
+export const maxDuration = 20;
+
 const Page = async () => {
   const user = await currentUser();
 
