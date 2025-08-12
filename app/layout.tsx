@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       { url: "/sommaire.png" }
     ]
   },
-  metadataBase: new URL(ORIGIN_URL), // ✅ always valid
+  metadataBase: new URL(ORIGIN_URL), 
   alternates: {
     canonical: ORIGIN_URL,
   },
