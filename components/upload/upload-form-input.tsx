@@ -23,7 +23,7 @@ const UploadFormInput = forwardRef<HTMLFormElement, UploadFormInputProps>(({ onS
                             <Loader2 className='w-4 h-4 animate-spin' />Processing...
                         </>
                         : <>
-                            Upload your PDF
+                            Upload your PDF here
                         </>}
                 </Button>
             </MotionDiv>
