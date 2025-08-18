@@ -2,7 +2,7 @@
 'use client';
 
 import { useInView } from 'react-intersection-observer';
-import { motion } from '@motionone/react';
+import { MotionDiv } from './motion-wrapper';
 
 type Props = {
     children: React.ReactNode;
@@ -16,13 +16,13 @@ export default function RevealOnScroll({ children, delay = 0 }: Props) {
     });
 
     return (
-        <motion.div
+        <MotionDiv
             ref={ref}
             initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay }}
         >
             {children}
-        </motion.div>
+        </MotionDiv>
     );
 }
